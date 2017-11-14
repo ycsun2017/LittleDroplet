@@ -10,6 +10,7 @@ Mask::Mask(void)
 Mask::~Mask(void)
 {
 }
+
 bool Mask::init()
 {
 	m_mask = Sprite::create("mask.png");

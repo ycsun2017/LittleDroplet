@@ -2,8 +2,10 @@
 #include "cocostudio\CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "Barrier.h"
+#include "Bg.h"
 #include "RestartScene.h"
 #include "PopScene.h"
+#include "AppDelegate.h"
 #include "Cars.h"
 #include "HelloWorldScene.h"
 using namespace cocostudio;
@@ -33,6 +35,8 @@ bool GameLayer::init()
 	do
 	{
 		CC_BREAK_IF(!Layer::init());
+		AppDelegate* app = (AppDelegate*)Application::getInstance();
+		app->setLevel(2);
 		//添加背景
 		this->initBG();
 		//添加水滴
@@ -77,14 +81,15 @@ void GameLayer::update(float dt)
 	//生命值降为0的提示--重新开始
 	if(_drip->getHpPoints() <= 0)
 	{
-		this->unscheduleUpdate();
-		auto restartScene = RestartScene::create();
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		CCRenderTexture *renderTexture = CCRenderTexture::create(visibleSize.width,visibleSize.height);
 		renderTexture->begin(); 
 		this->getParent()->visit();
 		renderTexture->end();
-		restartScene->create(renderTexture);
+
+		auto restartScene = PopScene::create();
+		restartScene->initRestart(renderTexture);
+		//restartScene->create(renderTexture);
 		Director::getInstance()->replaceScene(restartScene);
 	}
 
@@ -93,6 +98,9 @@ void GameLayer::update(float dt)
 	//if(_drip->getPosition().x > 500)
 	{
 		this->unscheduleUpdate();
+
+		auto litterScene = Bg::createScene();
+		Director::getInstance()->replaceScene(litterScene);
 		
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		CCRenderTexture *renderTexture = CCRenderTexture::create(visibleSize.width,visibleSize.height);
@@ -104,17 +112,6 @@ void GameLayer::update(float dt)
 		newHint->initWithCsb("newSceneHint.csb",renderTexture);
 
 		Director::getInstance()->pushScene(newHint);
-		/*auto action1 = CallFunc::create(
-                 [&](){
-                     Director::getInstance()->pushScene(anotherScene);
-                 }  );
-
-		auto action2 = CallFunc::create(
-                 [&](){
-                     Director::getInstance()->pushScene(newHint);
-                 }  );
-
-		this->runAction(Sequence::create(action2,NULL));*/
 	}
 
 	//log("x=%f,y=%f,(%f,%f)",this->getPosition().x,this->getPosition().y,_drip->getPosition().x,_drip->getPosition().y);
@@ -241,11 +238,11 @@ void GameLayer::startHint(float dt)
 	CCRenderTexture *renderTexture = CCRenderTexture::create(visibleSize.width,visibleSize.height);
 
 	renderTexture->begin(); 
-	this->getParent ()->visit();
+	this->getParent()->visit();
 	renderTexture->end();
 
 	auto startHintScene = PopScene::create();
-	startHintScene->initWithCsb("Layer1.csb",renderTexture);
+	startHintScene->initWithCsb("cityStartHint.csb",renderTexture);
 
 	Director::getInstance()->pushScene(startHintScene);
 	

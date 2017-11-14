@@ -13,8 +13,14 @@ public:
 	PopScene(void);
 	virtual ~PopScene(void);
 	void initWithCsb(char name[],CCRenderTexture* sqr );
+	void initWithSelect(char name[],CCRenderTexture* sqr );
 	void initWithSprite(char name[],CCRenderTexture* sqr);
+	void initWithDialogs(char name[],int num, CCRenderTexture* sqr);
+	void initRestart(CCRenderTexture* sqr );
 	void onClickBtn(Ref* sender,Widget::TouchEventType controlEvent);
+	void onRestartBtn(Ref* sender,Widget::TouchEventType controlEvent);
+	void onClickYes(Ref* sender,Widget::TouchEventType controlEvent);
+	void onClickNo(Ref* sender,Widget::TouchEventType controlEvent);
 	void assignScene(Scene* scene, bool replace, bool push);
 	void exit();
 	void changeScene();
@@ -23,8 +29,11 @@ public:
 
 private:
 	Button* exitBtn;
+	Button* yesBtn;
+	Button* noBtn;
 	bool replaceScene;
 	bool pushScene;
 	Scene* newScene;
+	int digNum;
 };
 

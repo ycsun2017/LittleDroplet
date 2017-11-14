@@ -10,7 +10,9 @@ HudLayer::HudLayer(void)
 	pauseBtn = NULL;
 	jumpBtn = NULL;
 	hpBar = NULL;
+	spars = NULL;
 	hpValue = 0.0;
+	sparNum = 0;
 }
 
 
@@ -36,7 +38,8 @@ bool HudLayer::init()
 		pauseBtn = static_cast<Button*>(ui->getChildByName("pauseBtn"));
 		hpBar = static_cast<LoadingBar*>(ui->getChildByName("hpValue"));
 		hpBar->setPercent(MAXHP);
-
+		spars = static_cast<TextAtlas*>(ui->getChildByName("sparNum"));
+		
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		jumpBtn->setPosition(Point(visibleSize.width-80,goRightBtn->getPosition().y));
 		pauseBtn->setPosition(Point(visibleSize.width-80,hpBar->getPosition().y+20));
@@ -53,6 +56,16 @@ bool HudLayer::init()
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener,this);
 
 		NotificationCenter::getInstance()->addObserver(this,callfuncO_selector(HudLayer::changeHp),"hp",NULL);
+		NotificationCenter::getInstance()->addObserver(this,callfuncO_selector(HudLayer::changeSpars),"spars",NULL);
+
+		AppDelegate* app = (AppDelegate*)Application::getInstance();
+		int sNum = app->getSparNum();
+		sparNum = sNum;
+		CCString* ns=CCString::createWithFormat("%d",sparNum);
+		String s=ns->_string;
+		const char* c_num = ns->getCString();
+		spars->setString(c_num);
+
 		bRet=true;
 	}while(0);
 	return bRet;
@@ -170,4 +183,16 @@ void HudLayer::changeHp(Ref* sender)
 {
 	auto hp = (Integer*)sender;
 	hpBar->setPercent(hp->getValue());
+}
+
+void HudLayer::changeSpars(Ref* sender)
+{
+	auto num = (Integer*)sender;
+	sparNum += num->getValue();
+	CCString* ns=CCString::createWithFormat("%d",sparNum);
+	String s=ns->_string;
+	const char* c_num = ns->getCString();
+	spars->setString(c_num);
+	AppDelegate* app = (AppDelegate*)Application::getInstance();
+	app->setSparNum(sparNum);
 }

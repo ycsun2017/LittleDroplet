@@ -4,7 +4,12 @@
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
-
+	_music_switch = true;
+	_effect_switch = true;
+	_right_button_isPressed = false;
+	_left_button_isPressed = false;
+	_level = 0;
+	_sparNum = 0;
 }
 
 AppDelegate::~AppDelegate() 
@@ -39,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 	glview->setDesignResolutionSize(960, 640, ResolutionPolicy::FIXED_HEIGHT);
     // turn on display FPS
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
@@ -102,4 +107,20 @@ bool AppDelegate::getEffectState()
 void AppDelegate::setEffectState(bool state)
 {
 	_effect_switch = state;
+}
+int AppDelegate::getLevel()
+{
+	return _level;
+}
+void AppDelegate::setLevel(int level)
+{
+	_level = level;
+}
+int AppDelegate::getSparNum()
+{
+	return _sparNum;
+}
+void AppDelegate::setSparNum(int num)
+{
+	_sparNum = num;
 }

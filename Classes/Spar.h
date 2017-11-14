@@ -10,9 +10,12 @@ public:
 	virtual ~Spar(void);
 
 	bool init();
+	bool isAlive();
+	void hide();
 	CREATE_FUNC(Spar);
 
 private:
 	Sprite* m_spar;  
+	bool m_isAlive;
 };
 

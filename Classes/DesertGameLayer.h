@@ -4,6 +4,7 @@
 #include "Defines.h"
 #include "Spars.h"
 #include "DesertBarriers.h"
+#include "Cutter.h"
 USING_NS_CC;
 class DesertGameLayer : public Layer
 {
@@ -14,10 +15,16 @@ public:
 	bool init();
 	void initBG();
 	void initDrip();
+	void initCutter();
 	virtual void update(float dt);
 	void updatePositions();
 	void setViewPointCenter(Point position);
 	void receiveActionMsg(Ref* pSender);
+	void receiveStormMsg(Ref* pSender);
+	void blowing(float dt);
+	void cutterDie();
+	void getCard(float dt);
+	void startHint(float dt);
 
 	CREATE_FUNC(DesertGameLayer);
 
@@ -25,5 +32,9 @@ public:
 	Sprite* _bg;
 	Spars* _spars;
 	DesertBarriers* _barriers;
+	Sprite* _cutter;
+	bool _cutterEncounter;
+	bool _cutterAlive;
+	bool _levelPassed;
 };
 

@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "DesertGameLayer.h"
 #include "HudLayer.h"
+#include "Storm.h"
 USING_NS_CC;
 class DesertGameScene : public Scene
 {
@@ -16,5 +17,6 @@ public:
 
     CC_SYNTHESIZE(DesertGameLayer*, _gameLayer, GameLayer);
     CC_SYNTHESIZE(HudLayer*, _hudLayer, HudLayer);
+	CC_SYNTHESIZE(Storm*, _stormLayer, StormLayer);
 };
 

@@ -43,12 +43,18 @@ public:
 	void setMusicState(bool state);
 	bool getEffectState();
 	void setEffectState(bool state);
+	int getLevel();
+	void setLevel(int level);
+	int getSparNum();
+	void setSparNum(int num);
 
 private:
 	bool _right_button_isPressed;
 	bool _left_button_isPressed;
 	bool _music_switch;
 	bool _effect_switch;
+	int _level;
+	int _sparNum;
 };
 
 #endif // _APP_DELEGATE_H_

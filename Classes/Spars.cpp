@@ -1,4 +1,7 @@
 #include "Spars.h"
+#include "AppDelegate.h"
+#include "SimpleAudioEngine.h" 
+using namespace CocosDenshion;  
 
 Spars::Spars(void)
 {
@@ -27,4 +30,26 @@ bool Spars::init()
 		bRet = true;
 	}while(0);
 	return bRet;
+}
+
+void Spars::Update(Drip* drip,float dt)
+{
+	for(auto spar : m_spars)
+	{
+		if(spar->isAlive())
+		{
+			if(drip->getBoundingBox().intersectsRect(spar->getBoundingBox()))
+			{
+				spar->hide();
+				auto msg = Integer::create(1);
+				msg->retain();
+				NotificationCenter::getInstance()->postNotification("spars",msg);
+
+				AppDelegate* app = (AppDelegate*)Application::getInstance();
+				if(app->getEffectState()==true)
+					SimpleAudioEngine::sharedEngine()->playEffect("getSparEffect.wav",false);
+			}
+		}
+	}
+
 }

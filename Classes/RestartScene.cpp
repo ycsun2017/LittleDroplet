@@ -1,6 +1,8 @@
 #include "RestartScene.h"
+#include "DesertGameScene.h"
+#include "JungleGameScene.h"
 #include "GameScene.h"
-
+#include "AppDelegate.h"
 
 RestartScene::RestartScene(void)
 {
@@ -24,7 +26,7 @@ void RestartScene::create(CCRenderTexture* sqr)
 
 	Node* hint = CSLoader::createNode("Restart.csb");
 	this->addChild(hint);
-	hint->setPosition(Point(0,0));	
+	hint->setPosition(Point(visibleSize.width/2-480,0));
 
 	auto exitBtn = static_cast<Button*>(hint->getChildByName("exitButton"));
 	exitBtn->addTouchEventListener(CC_CALLBACK_2(RestartScene::onClickBtn,this));	
@@ -36,6 +38,15 @@ void RestartScene::create(CCRenderTexture* sqr)
 
 void RestartScene::onClickBtn(Ref* sender,Widget::TouchEventType controlEvent)
 {
-	auto gameScene = GameScene::create();
+	AppDelegate* app = (AppDelegate*)Application::getInstance();
+	Scene* gameScene;
+	if(app->getLevel()==1)
+		gameScene = DesertGameScene::create();
+	if(app->getLevel()==2)
+		gameScene = JungleGameScene::create();
+	if(app->getLevel()==3)
+		gameScene = GameScene::create();
+	else
+		gameScene = DesertGameScene::create();
 	Director::getInstance()->replaceScene(gameScene);
 }

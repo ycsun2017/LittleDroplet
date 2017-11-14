@@ -21,6 +21,7 @@ public:
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 	void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 	void changeHp(Ref* sender);
+	void changeSpars(Ref* sender);
 	CREATE_FUNC(HudLayer);
 
 
@@ -29,7 +30,8 @@ public:
 	Button* pauseBtn;
 	Button* jumpBtn;
 	LoadingBar* hpBar;
+	TextAtlas* spars;
 	double hpValue;
-
+	int sparNum;
 };
 

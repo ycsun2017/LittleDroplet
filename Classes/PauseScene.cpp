@@ -33,8 +33,8 @@ void PauseScene::create(CCRenderTexture* sqr)
 
 	Node* hint = CSLoader::createNode("Pause.csb");
 	this->addChild(hint);
-	//hint->setAnchorPoint(Point(480 ,320));
-	hint->setPosition(Point(0,0));
+
+	hint->setPosition(Point(visibleSize.width/2-480,0));
 
 	exitBtn = static_cast<Button*>(hint->getChildByName("exitButton"));
 	exitBtn->addTouchEventListener(CC_CALLBACK_2(PauseScene::exit,this));	

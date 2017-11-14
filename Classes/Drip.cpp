@@ -220,7 +220,7 @@ void Drip::Update(float dt)
     }
 	if (_actionState == kActionStateJump)
     {
-        _desiredPosition = this->getPosition();
+        _desiredPosition = this->getPosition();//ccpAdd(this->getPosition(),Point(30,0));
     }
 	if (_actionState == kActionStateHurt)
 	{

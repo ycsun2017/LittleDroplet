@@ -13,10 +13,11 @@ public:
 	virtual ~StartScene(void);
 	virtual bool init();
 	void start(Ref* sender,Widget::TouchEventType controlEvent);
-
+	void intro(Ref* sender,Widget::TouchEventType controlEvent);
 	CREATE_FUNC(StartScene);
 
 private:
 	Button* startBtn;
+	Button* introBtn;
 };
 
